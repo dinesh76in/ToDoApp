@@ -10,6 +10,7 @@
 
 <body ng-app="todoApp">
 
+    <h2 style="text-align:center;">To Do App</h2>
 	<div ng-controller="ToDoController" style="padding-left: 150px; padding-right: 150px;padding-top: 50px;">
 	 <table class="table table-striped table-bordered">
         <thead>
@@ -21,22 +22,35 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="todo in todos">
+            <tr ng-repeat="todo in todos" >
                 <td>{{ todo.id }}</td>
                 <td>{{ todo.title }}</td>
                 <td>{{ todo.status }}</td>
-                <td> <a href="javascript:void(0)" ng-click="edit(todo.id)">edit</a> | <a href="javascript:void(0)" ng-click="delete(todo.id)">delete</a>
+                <td> <a href="javascript:void(0)" ng-click="edit(todo)">edit</a> | <a href="javascript:void(0)" ng-click="delete(todo.id)">delete</a>
 
             </tr>
         </tbody>
     </table>
 
-    <form class="well">
-        <label>To do Name</label>
-        <input type="text" name="name" ng-model="title" />
-        <input type="button" value="Save" ng-click="save(title)" class="btn btn-primary" />
-    </form>
+   <div>
+        <form class="well">
+            <label>To do Name</label>
+            <input type="text" name="name" ng-model="title" />
+            <input type="button" value="Save" ng-click="save(title)" class="btn btn-primary" />
+        </form>
    </div>
 
+   <div ng-show="mode == 'edit'">
+    <br>
+       <form class="well">
+            <label>To do Name</label><input type="text" ng-readonly="true" name="name" ng-model="selected.title" />
+            <label>To do Status</label><input type="text" name="name" ng-model="selected.status" />
+            <input type="button" value="Save" ng-click="update(selected.id,selected.status)" class="btn btn-primary" />
+            <input type="button" value="Cancel" ng-click="cancel()" class="btn btn-primary" />
+        </form> 
 
-  </div>
+   </div> 
+   </div>
+
+ </body>
+</html>

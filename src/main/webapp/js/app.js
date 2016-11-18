@@ -1,58 +1,61 @@
 var module = angular.module('todoApp', []);
-module.service('ToDoService', function ($http) {
-    
-    this.save = function (todo) {
+module.constant('baseURL', 'http://localhost:8080/todo/rest/todo/');
+module.service('ToDoService', ['$http', 'baseURL', function($http, baseURL) {
 
-        console.log("Saving new todo");
-        $http.put('http://localhost:8080/todo/rest/todo/'+todo).success(function() {
-            
+    this.save = function(todo) {
+        $http.post(baseURL + todo).success(function() {
         });
     }
 
-    this.get = function (id) {
-        $http.get('http://localhost:8080/todo/rest/todo/'+id).success(function(data) {
+    this.get = function(id) {
+        $http.get(baseURL + id).success(function(data) {
             return data;
         });
     }
-    
-    this.delete = function (id) {
-        $http.delete('http://localhost:8080/todo/rest/todo/'+id).success(function() {
-            
+
+    this.delete = function(id) {
+        $http.delete(baseURL + id).success(function() {
         });
     }
 
-    this.list = function () {
-          $http.get('http://localhost:8080/todo/rest/todo').success(function(data) {
-           console.log(" todos"+data);
-           
-        });
-        return data;
-    }
+}]);
 
+module.controller('ToDoController', ['$scope', 'ToDoService', '$http', '$window', 'baseURL', function($scope, ToDoService, $http, $window, baseURL) {
 
-});
+    $scope.selected = {};
 
-module.controller('ToDoController', function ($scope, ToDoService,$http) {
-  
-     $http.get('http://localhost:8080/todo/rest/todo').success(function(data) {
-           $scope.todos= data;
-        });
-    
-    $scope.save = function () {
+    $http.get(baseURL).success(function(data) {
+        $scope.todos = data;
+    });
+
+    $scope.save = function() {
         ToDoService.save($scope.title);
-        
-        $http.get('http://localhost:8080/todo/rest/todo').success(function(data) {
-           $scope.todos= data;
+        $http.get(baseURL).success(function(data) {
+            $scope.todos = data;
         });
-
     }
 
-    $scope.delete = function (id) {
+    $scope.update = function(id, status) {
+        $http.put(baseURL + id + '/' + status).success(function(data) {
+            $http.get(baseURL).success(function(data) {
+                $scope.todos = data;
+            });
+        });
+        $scope.mode = '';
+    }
+
+    $scope.delete = function(id) {
         ToDoService.delete(id);
-        if ($scope.newtodo.id == id) $scope.newtodo = {};
+        $window.location.reload();
     }
 
-    $scope.edit = function (id) {
-        $scope.newtodo = angular.copy(ToDoService.get(id));
+    $scope.edit = function(todo) {
+        $scope.mode = 'edit';
+        $scope.selected = angular.copy(todo);
     }
-})
+
+    $scope.cancel = function() {
+        $scope.mode = '';
+    }
+
+}])
