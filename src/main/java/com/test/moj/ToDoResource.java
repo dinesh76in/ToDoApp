@@ -37,16 +37,17 @@ public class ToDoResource {
 	@Consumes({MediaType.APPLICATION_JSON}) 
 	@Path("/{title}")
 	public Response createToDo(@PathParam("title")String  title) {
-		saveToDo(new ToDo(todoCount++,title,"Pending"));
+		saveToDo(new ToDo(todoCount++,title,"Pending","Medium"));
 		return Response.status(200).build();
  	}
 	
 	@PUT
 	@Consumes({MediaType.APPLICATION_JSON}) 
-	@Path("/{id}/{status}")
-	public Response saveToDos(@PathParam("id")int  id,@PathParam("status")String  status) {
+	@Path("/{id}/{status}/{priority}")
+	public Response saveToDos(@PathParam("id")int  id,@PathParam("status")String  status,@PathParam("priority")String  priority) {
 		ToDo todo=getToDoById(id);
 		todo.setStatus(status);
+		todo.setPriority(priority);
 		return Response.status(200).build();
  	}
 	

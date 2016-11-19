@@ -35,8 +35,8 @@ module.controller('ToDoController', ['$scope', 'ToDoService', '$http', '$window'
         });
     }
 
-    $scope.update = function(id, status) {
-        $http.put(baseURL + id + '/' + status).success(function(data) {
+    $scope.update = function(id, status,priority) {
+        $http.put(baseURL + id + '/' + status+'/'+priority).success(function(data) {
             $http.get(baseURL).success(function(data) {
                 $scope.todos = data;
             });

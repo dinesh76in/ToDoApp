@@ -17,6 +17,7 @@
             <tr>
                 <th>Id</th>
                 <th>To Do Name</th>
+                <th>Priority</th>
                 <th>To Do Status</th>
                 <th>Action</th>
             </tr>
@@ -25,9 +26,9 @@
             <tr ng-repeat="todo in todos" >
                 <td>{{ todo.id }}</td>
                 <td>{{ todo.title }}</td>
+                <td>{{ todo.priority }}</td>
                 <td>{{ todo.status }}</td>
                 <td> <a href="javascript:void(0)" ng-click="edit(todo)">edit</a> | <a href="javascript:void(0)" ng-click="delete(todo.id)">delete</a>
-
             </tr>
         </tbody>
     </table>
@@ -45,7 +46,8 @@
        <form class="well">
             <label>To do Name</label><input type="text" ng-readonly="true" name="name" ng-model="selected.title" />
             <label>To do Status</label><input type="text" name="name" ng-model="selected.status" />
-            <input type="button" value="Save" ng-click="update(selected.id,selected.status)" class="btn btn-primary" />
+            <label>Priority</label><input type="text" name="name" ng-model="selected.priority" />
+            <input type="button" value="Save" ng-click="update(selected.id,selected.status,selected.priority)" class="btn btn-primary" />
             <input type="button" value="Cancel" ng-click="cancel()" class="btn btn-primary" />
         </form> 
 
