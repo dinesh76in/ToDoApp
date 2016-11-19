@@ -1,21 +1,21 @@
 # ToDoApp
 Functionality : Simple app to manage to dos, it implements the following stories 
 
-As a forgetful person
-I need to record things I need to do
-so that I will never forget them
+    As a forgetful person
+    I need to record things I need to do
+    so that I will never forget them
 
-As a proactive person
-I need to see the to dos I haven't yet done
-so that I can pick the next one to do
+    As a proactive person
+    I need to see the to dos I haven't yet done
+    so that I can pick the next one to do
 
-As a successful to do doer
-I need to mark a to do as complete
-so that I don't see it on my list of unfinished to dos
+    As a successful to do doer
+    I need to mark a to do as complete
+    so that I don't see it on my list of unfinished to dos
 
-As a person with demands on my time
-I need to prioritise my to dos
-so that I don't forget which are most important to do
+    As a person with demands on my time
+    I need to prioritise my to dos
+    so that I don't forget which are most important to do
 
 
 
